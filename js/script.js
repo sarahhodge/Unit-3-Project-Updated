@@ -122,6 +122,7 @@ function failedValidation(element) {
   formField.classList.add('not-valid');
   formField.classList.remove('valid');
   formField.lastElementChild.style.display = 'block';
+  event.preventDefault()
 }
 
 
@@ -204,7 +205,4 @@ validActivity();
 validCreditCardValid();
 validZipCode();
 validCvv();
-
-event.preventDefault();
-
 });
