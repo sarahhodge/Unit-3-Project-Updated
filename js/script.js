@@ -162,9 +162,9 @@ return validActivities;
 }
 
 // “Credit Card”
-function validCreditCardValid(){
+function validCreditCard(){
 const creditCardValue = ccNumber.value;
-const attendeePayment = /\d{13,16}/.test(creditCardValue);
+const attendeePayment = /^\d{13,16}$/.test(creditCardValue);
   if (attendeePayment) {
     passedValidation(ccNumber);
   } else {
@@ -176,7 +176,7 @@ return attendeePayment;
 // “Zip code”
 function validZipCode(){
 const zipCodeValue = zipcode.value;
-const attendeeZipCode = /\d{5}/.test(zipCodeValue);
+const attendeeZipCode = /^\d{5}$/.test(zipCodeValue);
   if (attendeeZipCode) {
     passedValidation(zipcode);
   } else {
@@ -188,7 +188,7 @@ const attendeeZipCode = /\d{5}/.test(zipCodeValue);
 // “Cvv”
 function validCvv(){
 const cvvValue = cvv.value;
-const attendeeCvv = /\d{3}/.test(cvvValue);
+const attendeeCvv = /^\d{3}$/.test(cvvValue);
   if (attendeeCvv) {
     passedValidation(cvv);
   } else {
@@ -197,12 +197,25 @@ const attendeeCvv = /\d{3}/.test(cvvValue);
 return attendeeCvv;
 }
 
+
+function validSelectedPayment(){
+  if (payment.value === 'credit-card') {
+    return (
+      validCreditCard(ccNumber.value) &&
+      validZipCode(zipcode.value) &&
+      validCvv(cvv.value));
+  }  else {
+      passedValidation(payment.value);
+  };
+}
+
 //Use the “form” variable to listen for the submit event
 form.addEventListener( 'submit', e => {
 validName();
 validEmail();
 validActivity();
-validCreditCardValid();
+validSelectedPayment();
+validCreditCard();
 validZipCode();
 validCvv();
 });
